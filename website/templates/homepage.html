@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
+<style>
+    .textbox {
+        margin-left: 39%;
+        width: 250px;
+        height: 30px;
+        
+    }
+</style>
+<br/>
+<br/>
+<h3 align="center">Search for a product!</h3>
+
+<form method="POST">
+    <textarea name="search" id="search" class="textbox"></textarea>
+    <br/>
+    <div align="center">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<h5 align="center">Scraped Products</h5>
+<br>
+<ul class="list-group list-group-flush" id="searches">
+    {% for search in user.searches %}
+    <li class="list-group-item">
+        <a href="{{ url_for('routes.view_search', search_id=search.id) }}">{{ search.data }}</a>
+        <button type="button" class="close" onClick="deleteSearch({{ search.id }})">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+    

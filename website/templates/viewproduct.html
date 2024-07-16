@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Search Results{% endblock %}
+{% block content %}
+<br>
+<h3 align="center">Scraped Products for "{{ search.data }}"</h3>
+<br>
+<br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Product Name/Description</th>
+            <th>Price</th>
+            <th>Score</th>
+            <th>Number of Ratings</th>
+            <th>Availability</th>
+            <th>Prime</th>
+            <th>Discounts</th>
+            <th>Seller Information</th>
+            <th>URL</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td><img src="{{ product.image }}" alt="{{ product.name }}" style="width:100px;height:100px;"></td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.rating }}</td>
+            <td>{{ product.ratings_number }}</td>
+            <td>{{ product.availability }}</td>
+            <td>{{ product.prime }}</td>
+            <td>{{ product.discount }}</td>
+            <td>{{ product.seller }}</td>
+            <td><a href="{{ product.url }}" target="_blank">View on Amazon</a></td>
+            <td>
+                <form method="POST" action="{{ url_for('routes.automation') }}">
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <button type="submit" class="btn btn-primary">Favorite</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
